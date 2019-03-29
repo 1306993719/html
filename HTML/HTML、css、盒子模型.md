@@ -1,6 +1,6 @@
 # HTML
 
-# WEB标准，W3C/WHATWG/ECMA相关概念
+## WEB标准，W3C/WHATWG/ECMA相关概念
 
 ### WEB标准组成 
 
