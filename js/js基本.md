@@ -149,4 +149,60 @@
 		==表示等同。
 			2)、如果类型不同，有可能相同。
 
+### 关系运算符
+
+	关系：
+		>  <  ==  >=  <=  !=  ===  !==
+	1、关系运算符的结果是；真或假，boolean类型
+
+		alert(5>3);//true
+		alert(5<3);//false
+		alert(5>=3);//true;
+		alert(3<=5);//true;
+		alert(3!=5);//true;
+		alert(3==5);//false
+
+	2、===和==的区别：
+		===表示恒等，完全
+		只要类型不同，肯定不同
+
+		==表示等同。
+		如果类型不同，有可能相同。
+
+		alert(5=="5");//true
+		alert(5==="5");//false
+		
+### 逻辑运算符：
+	
+	关系：
+		&&(与)   ||(或)   ！(非)
+
+	&& 与:
+	与的运算规则：
+		同真为真，一假则假(只要有一个是假的， 那就是假的)
+		var t = true;
+		var f = false;
+		alert(t&&f);//false
+		alert(true&&true);//true
+		alert(false&&false);//false
+		alert(false&&true);//false
+
+	|| 或
+	或的运算规则：
+		一真为真，同假则假
+		alert(true || false);//true
+		alert(false || true);//true
+		alert(true || true);//true
+		alert(false || false);//false
+
+	! 非
+	非的运算规则：
+		真是假，假是真
+	alert(!true);//false
+	alert(!false);//true
+
+	逻辑短路：
+		当逻辑运算符前面的表达式已经能够决定整个表达式的结果时，后面的表达式就不参与运算。这就是逻辑短路。非运算符没有逻辑短路（因为，只有一个操作数）
+	alert(5<3 && 2>1);//false;
+	alert(5>3 || 1<2);//true
 
