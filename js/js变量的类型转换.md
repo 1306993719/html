@@ -172,9 +172,338 @@
 			alert("hello\n world");
 		}
 
+## 选择语句	
 
-​		
-​		
-​		
-​		
-​		
+	 单分支语句：
+	只有一条分支的条件语句。没有else语句块的if语句就是单分支。
+	if(num1>0){
+	alert(“大于零”);
+	}
+	  双分支语句：
+	有两条分支的条件语句是双分支语句。
+	  多分支语句：
+	两条以上的分支语句叫多分支语句。
+	  嵌套分支语句：
+	分支语句中套分支语句，可以用来实现多分支。
+	
+	1.if的单分支
+		if(条件){ //条件一般是关系表达式或者逻辑表达式
+			语句
+		}
+	
+	2.if的双分支
+	if(条件){
+		语句一
+	}else{
+		语句二
+	}
+	
+	3.if的多分支
+	if(条件一){
+		语句一
+	}else if(条件二){
+		语句二
+	}else{
+		语句三
+	}
+	
+	4.if的嵌套？
+	if(条件一){
+		if(条件一一){
+			语句一一
+		}else{
+			语句一二
+		}
+	}else if(条件二){	
+		if(条件二一){
+			语句二一
+		}else{
+			语句二二
+		}
+	}else{
+		语句三
+	}
+### 举例“闰年”
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<body>
+		亲，请输入一个年：<input id="yearId" type="text" />
+		<input type="button" value="是闰年还是平年" onclick="testf()" />
+		<input id="resultId" type="text" />
+	</body>
+</html>
+<script type="text/javascript">
+//生活中：四年一闰，百年不闰，四百年一闰
+
+function testf() {
+	//1、获取文本框的内容
+	var year = Number(document.getElementById("yearId").value);
+	
+	//2、判断
+	var str;
+	if((year%4==0 && year%100!=0)||(year%400==0)){
+		str=year+"是闰年";
+	}else{
+		str=year+"是平年";
+	}
+
+	//3、显示
+	document.getElementById("resultId").value = str;
+}
+
+</script>
+```
+
+### 示列“三分支”
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<body>
+		身高：<input id="heightId" type="text" />厘米<br/>
+		体重：<input id="weightId" type="text" />千克<br/>
+		<input type="button" value="计算你的体型" onclick="testf()" />
+		<input id="resultId" type="text" />
+	</body>
+</html>
+<script type="text/javascript">
+//
+
+function testf() {
+	//1、获取文本框的内容
+	var height = Number(document.getElementById("heightId").value);
+	var weight = Number(document.getElementById("weightId").value);
+	
+	//2、判断
+	var str;
+	var standardWeight = height-105;
+	if(weight<standardWeight-5){
+		str="亲，您多吃点，要飘起来了！";
+	}else if(weight>standardWeight+5){
+		str="亲，您少吃点，地球有意见！";
+	}else{
+		str="亲，您是魔鬼身材，好崇拜噢！"
+	}
+	
+	//3、显示
+	document.getElementById("resultId").value = str;
+}
+
+</script>
+```
+
+### 示列“嵌套”
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<body>
+		亲，请输入一个x：<input id="numId" type="text" />
+		<input type="button" value="计算y" onclick="testf()" />
+		<input id="resultId" type="text" />
+	</body>
+</html>
+<script type="text/javascript">
+    
+function testf() {
+	//1、获取文本框的内容
+	var x = Number(document.getElementById("numId").value);
+	
+	//2、判断
+	var y;
+	
+	if(x<1){
+		y = x;
+	}else{
+		if(x<10){
+			y = 2*x+1;
+		}else{
+			y = 5*x+17;
+		}
+	}	
+	//3、显示
+	document.getElementById("resultId").value = y;
+}
+
+</script>
+```
+
+## 多分支语句switch 
+
+	语法：
+		switch(表达式){
+		case 表达式1:分支语句一;break;
+		case 表达式2:分支语句二;break;
+		case 表达式3:分支语句三;break;
+		…
+		case 表达式n:分支语句n;break;
+		default:默认分支语句;break;
+	}
+	
+		switch表达式的值和case表达式的值进行比较，两值相等就执行case对应的分支语句。分支语句可有有任
+	意多个，如果没有任何case表达式的值与switch表达式值相等就执行default的默认分支语句。
+	因为执行完分支语句后不会自动退出switch语句，会继续执行后续的分支语句，这叫做switch的穿透，为
+	避免穿透，需要在每条分支语句后添加break，跳出switch语句。
+
+### 示列“成绩”
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<body>
+		亲，请输入您的成绩：<input id="scoreId" type="text" />
+		<input type="button" value="计算等级" onclick="testf()" />
+		<input id="resultId" type="text" />
+	</body>
+</html>
+<script type="text/javascript">
+
+switch(表达式){
+	case 表达式1:语句一;break;
+	case 表达式2:语句二;
+	case 表达式3:语句三;break;
+	……
+	case 表达式n:语句n;break;
+	default:默认语句
+}
+
+break:结束switch结构
+case穿透：如果某个分支没有break，那就会出现case穿透。
+
+function testf() {
+	//1、获取文本框的内容
+	var score = Number(document.getElementById("scoreId").value);
+	
+	//2、判断
+	var level;
+	if(score>=85 && score<=100){
+		level = "A";
+	}else if(score>=70 && score<85){
+		level = "B";
+	}else if(score>=60 && score<70){
+		level = "C";
+	}else if(score>=0 && score<60){
+		level = "D";
+	}else{
+		level = "亲，您胡输入呢";
+	}
+	
+	//3、显示
+	document.getElementById("resultId").value = level;
+}
+
+</script>
+```
+
+### 示列"星期"
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<body>
+		亲，请输入0-7之间的数字：<input id="numId" type="text" />
+		<input type="button" value="显示汉字的星期" onclick="testf()" />
+		<input id="resultId" type="text" />
+	</body>
+</html>
+<script type="text/javascript">
+
+function testf() {
+	//1、获取文本框的内容
+	var num = Number(document.getElementById("numId").value);
+	
+	//2、判断
+	var str;
+
+	switch(num){
+		case 0:str="星期天";break;
+		case 1:str="星期一";break;
+		case 2:str="星期二";break;
+		case 3:str="星期三";break;
+		case 4:str="星期四";break;
+		case 5:str="星期五";break;
+		case 6:str="星期六";break;
+		default:str="亲，您的输入有误";break;
+	}
+	
+	//3、显示
+	document.getElementById("resultId").value = str;
+}
+
+</script>
+```
+
+## 三元运算符
+
+	一元(单目)运算符：运算符需要一个操作数 ++，  --， ！
+	二元(双目)运算符：运算符需要二个操作数 +，-，< , &&, ||
+	三元(三目)运算符：运算符需要三个操作数 ? :
+	
+	格式：
+		表达式一?表达式二:表达式三
+	意思：
+		当表达式一成立，那么就执行表达二，否则执行表达式三。
+
+### 示列
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<body>
+		数1：<input id="numId1" type="text" />
+		数2：<input id="numId2" type="text" />
+		<input type="button" value="谁大" onclick="testf()" />
+		<input id="resultId" type="text" />
+	</body>
+</html>
+<script type="text/javascript">
+
+function testf() {
+	//1、获取文本框的内容
+	var num1 = Number(document.getElementById("numId1").value);
+	var num2 = Number(document.getElementById("numId2").value);
+	
+	//2、判断
+	var max;
+	max = num1>num2?num1:num2;
+
+	//3、显示
+	document.getElementById("resultId").value = max;
+}
+
+</script>
+
+```
+
