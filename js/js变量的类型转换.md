@@ -460,6 +460,15 @@ function testf() {
 </script>
 ```
 
+### while与do while的区别
+
+	while和dowhile的区别：
+		在于执行顺序。
+	while：
+		先判断循环条件，再执行循环体里的代码
+	do while：
+		先执行循环体里的代码，然后再判断。
+
 ## 三元运算符
 
 	一元(单目)运算符：运算符需要一个操作数 ++，  --， ！
