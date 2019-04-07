@@ -419,3 +419,185 @@ function sumNAndM(n,m){
 	任何地方。不但在任何函数中都可以使用，而且值是共享。即A函数改变值后，B函数拿到的就是改后
 	的值。就像共享单车一样。
 
+### 示列"全局和局部重名"
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input  type="button" value="测试" onclick="testf()" >
+	</body>
+</html>
+<script type="text/javascript" >
+
+function testf(){
+	func1();
+	func2();
+}	
+
+var age =100;//全局变量，全局变量的值是共享
+
+function func1() {
+	var age = 350;//局部变量
+	alert(age);//350
+}
+
+function func2() {
+	alert(age);//100，全局变量
+}
+</script>
+```
+
+
+
+## 变量的声明提升
+
+	变量的声明提升：
+		变量声明总是会被解释器悄悄地被“提升”到方法体的最顶部
+		请注意，变量赋值并没有被提升，只是声明被提升了。
+
+### 示列"当全局和局部重名时碰到声明提升"	
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input  type="button" value="测试" onclick="testf()" >
+	</body>
+</html>
+<script type="text/javascript" >
+
+function testf(){
+	func1();
+	func2();
+}	
+var age =100;//全局变量，全局变量的值是共享
+
+//以下代码，
+function func1() {
+	alert(age);//这个是局部变量 undefined; 
+	var age = 350;
+}
+//经过预编译后
+function func1() {
+	var age;
+	alert(age);//这个是局部变量 undefined; 
+	age = 350;
+}
+function func2() {
+	alert(age);//100
+}
+</script>
+```
+
+## 事件调用函数
+	事件调用函数： 
+		我们把事件和自定义函数建立起对应关系，当事件发生时就去调用我们的函数。
+	
+	我们已经学习了onclick事件，还有onload, onfocus、onblur等等。
+		onload:标签（页面）加载完成(页面完全打开)
+		onfocus:获得焦点（简单理解为，光标进入）
+		onblur:失去焦点（简单理解为，光标离开）
+
+### 示列"onfocus与onblur"
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input id="txt" type="text" value="请输入电影名" onblur="resetText()" onfocus="clearText()" />
+		<input  type="button" value="搜索"  >
+	</body>
+</html>
+<script type="text/javascript" >
+
+function clearText() {
+	if(document.getElementById("txt").value=="请输入电影名"){
+		document.getElementById("txt").value = "";
+	}
+}
+function resetText(){
+	if(document.getElementById("txt").value==""){
+		document.getElementById("txt").value = "请输入电影名";	
+	}
+}
+</script>
+```
+
+## 递归函数 
+	JS函数可以相互调用，嵌套调用
+	JS函数也能调用自己，调用自己的函数叫做递归函数，递归函数就是特殊的嵌套调用函数。
+
+### 示列"斐波那契数列"
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		请输入一个数:<input type="text" id="txtId" >
+		<input  type="button" value="求斐波那契数" onclick="testf()" >
+	</body>
+</html>
+<script type="text/javascript" >
+
+function testf(){
+	var num = Number(document.getElementById("txtId").value);
+
+	var temp = fbnq(num);
+
+	console.log(temp);
+}	
+/*
+              n1     n2    n3
+ n1     n2    n3
+  1     1     2      3      5     8     13     21
+        n1    n2     n3
+*/
+//求第n个斐波那契数列的数
+
+function fbnq(n){
+	if(n==1 || n==2){
+		return 1;
+	}
+	var n1=1;
+	var n2=1;
+	var n3;
+	for(var i=3;i<=n;i++){
+		n3 = n1+n2;
+		n1 = n2;
+		n2 = n3;
+	}
+	return n3;
+}
+
+/*
+//递归做斐波那契数列
+function fbnq(n){
+	if(n==1 || n==2){
+		return 1;
+	}
+	return fbnq(n-1)+fbnq(n-2);
+}
+*/
+</script>
+```
+
+
+
+​	
