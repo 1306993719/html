@@ -516,3 +516,315 @@ function testf() {
 
 ```
 
+## 数组的排序-冒泡
+		数组的数据如果是无序的，经常需要按大小个排序。排序算法有很多，我们介绍最常见的两个。
+	冒泡排序和选择排序。
+	
+	冒泡排序算法的运作如下：
+	从第一个元素开始比较后一个元素，只要前一个元素大于后一个元素就交换两元素位置。比完后最大的
+	元素应该就移动到数组最后的位置。
+	针对所有的元素重复以上的步骤，除了最前一个。
+	持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="button" value="  排序 " onclick ="testf()" />			
+	</body>
+</html>
+<script type="text/javascript">
+//冒泡排序：相邻两个数进行比较，如果前一个数比后一个数大，那么就交换。
+
+//举例说明：
+// var arr=[8,7,9,4,2,1];
+/*
+第一轮:i=0;
+比较5次，内层循环是5次
+j =  0            1              2
+
+ 	 8            7               7          7        7        7
+	 7            8               8          8        8        8
+	 9            9               9          4        4        4
+	 4            4               4          9        2        2
+	 2            2               2          2        9        1
+	 1            1               1          1        1        9
+arr[0]>arr[1]  arr[1]>arr[2]  arr[2]>arr[3] 
+arr[j]>arr[j+1]
+
+第二轮:i=1;    
+比较4次，内层循环是4次
+j =   0     1
+
+	  7         7              7     7      7
+	  8         8              4     4      4
+	  4         4              8     2      2
+	  2         2              2     8      1
+	  1         1              1     1      8
+	  9         9              9     9      9
+arr[0]>arr[1]  arr[1]>arr[2]  arr[2]>arr[3] 
+arr[j]>arr[j+1]  
+  
+第三轮:i=2;  
+比较3次，内层循环是3次
+j =  0 
+	  7     4     4      4
+      4     7     2      2
+      2     2     7      1
+      1     1     1      7
+      8     8     8      8
+      9     9     9      9
+	
+第四轮	
+  
+	  4      2     2
+	  2      4     1
+      1      1     4
+      7      7     7
+      8      8     8
+	  9      9     9
+
+第五轮	   
+
+	  2   1
+      1   2
+      4   4
+      7   7
+	  8   8
+	  9   9
+*/
+
+function testf() {
+	var arr= [8,7,9,4,2,1];
+
+	//2、冒泡的逻辑
+	
+	for(var i=0;i<arr.length-1;i++){
+		for(var j=0;j<arr.length-1-i;j++){
+			//比较
+			if(arr[j]>arr[j+1]){
+				var temp = arr[j];
+				arr[j] = arr[j+1];
+				arr[j+1] = temp;
+			}
+		}
+	}
+
+	//3、输出数组所有的元素
+	for(var i=0;i<arr.length;i++){
+		console.log(arr[i]);
+	}
+}
+</script>
+```
+
+## 数组的排序-选择
+		从所有元素中先找到最小的，然后放到第一个位置。之后再看剩余元素中最小的，放到第二个位置……
+	以此类推，就可以完成整个的排序工作了。
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="button" value="  排序 " onclick ="testf()" />			
+	</body>
+</html>
+<script type="text/javascript">
+//选择法排序：从所有元素中先找到最小的，然后放到第一个位置。之后再看剩余元素中最小的，放到第二个位置……以此类推，就可以完成整个的排序工作了
+
+// 8,7,9,4,2,1
+
+/* i=0;
+
+  找最小数(从arr[0]到最后一个数)，然后交换（最小数和arr[0]）
+  
+
+  1,7,9,4,2,8
+
+  i=1	
+  找最小数(从arr[1]到最后一个数)，然后交换（最小数和arr[1]）
+  1,2,9,4,7,8
+
+  i=2	
+  找最小数(从arr[2]到最后一个数)，然后交换（最小数和arr[2]）
+  1,2,4,9,7,8
+
+  1,2,4,7,9,8
+
+  1,2,4,7,8,9
+*/
+
+function testf() {
+	var arr= [8,7,9,4,1,2];
+
+	//2、选择法的逻辑
+	for(var i=0;i<arr.length-1;i++){
+		//1、找最小数
+		//方法一：
+		// var min = arr[i];//1
+		// var minIndex = i;//minIndex记录最小数的下标
+		// for(var j=i+1;j<arr.length;j++){
+		// 	if(arr[j]<min){
+		// 		min = arr[j];
+		// 		minIndex = j;
+		// 	}
+		// }
+
+		//方法二：
+		var minIndex = i;//minIndex记录最小数的下标
+		for(var j=i+1;j<arr.length;j++){
+			if(arr[j]<arr[minIndex]){
+				minIndex = j;
+			}
+		}
+        
+		//2、交换
+		var temp = arr[minIndex];
+		arr[minIndex] = arr[i];
+		arr[i] = temp;	
+	}
+
+	//3、输出数组所有的元素
+	for(var i=0;i<arr.length;i++){
+		console.log(arr[i]);
+	}
+}
+</script>
+```
+
+## 值类型与引用类型
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作业</title>
+</head>
+<body >
+	<input id="btn01" type="button" onclick="testf()" />
+</body>
+</html>
+<script type="text/javascript">
+
+//基本类型（值类型）：
+//  number string boolean  undefined null;
+
+//引用类型：	
+Object,
+arr
+
+//当前窗口的内容加载完毕
+window.onload = function () {
+		//x和y是基本类型（值类型）
+		var x=0;
+		var y=x;		
+		var y=1;
+
+		console.log(x);//0
+		console.log(y);	//1	
+		
+		//arr1和arr2是引用类型
+		var arr1=[2,4,7,5,3,6,1];
+		var arr2=arr1;
+		arr2[0]=33;
+
+		console.log(arr1); //
+		console.log(arr2); //
+}	
+//内存是存放数据的
+//cpu:中央处理单元，执行代码的
+</script>
+```
+
+## ES5新增的数值的方法
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="button" value="  测试  " onclick ="testf()" />			
+	</body>
+</html>
+<script type="text/javascript">
+//EcmaScript:简称ES，以前都是ES3的。
+//今天看ES5新增的数组方法。
+// indexOf
+// forEach()
+// filter()
+// Map()
+
+function testf() {
+	//1、indexOf(); 返回一个数在数组中的下标
+	// var arr=[12,23,34,45];
+	// console.log(arr.indexOf(34));//2
+	// console.log(arr.indexOf(100));//-1
+
+	//2、forEach(): 会修改原始数组,好处：不用程序员再写循环语句
+	// var arr=[12,23,34,45];
+	// arr.forEach(alert);//针对数组中的每个元素进行alert。
+
+	// for(var i in arr){
+	// 	alert(arr[i]);
+	// }
+
+	// var arr=[12,23,34,45];
+	// arr.forEach(arrInc);//把数组arr的每个元素做arrInc处理
+	// console.log(arr);
+
+	// arr.forEach(arr13);
+	// // for(var i in arr){
+	// // 	arr[i] = arr[i]*1.3;
+	// // }
+	// console.log(arr);
+	
+	//3、filter();过滤，不会修改原始数组，而是产生新的数组
+	// var arr=[-12,23,-34,45,100,-21];
+	// var arr1 = arr.filter(gtZero);//把arr里的每个元素做大于0的比较，留下大于0的，放在arr1数组里。
+	// console.log(arr);
+	// console.log(arr1);
+
+	//4、map();不会修改原始数组，而是产生新的数组
+	var arr=[12,23,34,45];
+	var arr1 = arr.map(mySqr);
+	console.log(arr);
+	console.log(arr1);
+}
+
+//arrInc：所做处理就是给元素加1
+//num：数组元素本身
+//index：下标
+//arr：是数组本身
+function arrInc(num,index,arr){
+	arr[index] = num+1;
+}
+
+function arr13(num,index,arr){
+	// arr[index] = num*1.3;
+	arr[index] = arr[index]*1.3;
+}
+
+//num：是数组的元素本身
+function gtZero(num){
+	return num>0;
+}
+
+//平方处理
+//num:是数组的元素
+function mySqr(num){
+	return num*num;
+}
+</script>
+```
+
