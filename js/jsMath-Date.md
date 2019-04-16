@@ -176,7 +176,7 @@ function toWeek(num){
 	注：
 		因为只执行一次回调函数，所以为达到不停执行回调函数的效果必须在回调函数中再次设置。
 
-示列"做随机颜色"
+###示列"做随机颜色"
 
 ```html
 <!doctype html>
@@ -210,7 +210,7 @@ function startColor(){
 </script>
 ```
 
-示列"做秒表"
+###示列"做秒表"
 
 ```html
 <!doctype html>
@@ -233,18 +233,21 @@ function startColor(){
 var seconds = 0;//记录当前的秒数的	
 var minutes = 0;//记录当前的分钟数的	
 var hours = 0;//记录当前的小时数的	
-var myTimer;
+var myTimer=null;
 
 function begin() {
-
+	if(myTimer!=null){
+		return;
+	}
+	//myTimer是定时器的编号；
 	myTimer = setInterval(function(){
 		seconds++;
 
-		if(seconds==20){
+		if(seconds==60){
 			minutes++;
 			seconds=0;
 
-			if(minutes==20){
+			if(minutes==60){
 				hours++;
 				minutes=0;
 			}
@@ -253,15 +256,21 @@ function begin() {
 		document.getElementById("hoursText").value = hours<10?"0"+hours:hours;
 		document.getElementById("minutesText").value = minutes<10?"0"+minutes:minutes;
 		document.getElementById("secondsText").value = seconds<10?"0"+seconds:seconds;
-	},100);		
+
+	},1000);
+	// console.log(myTimer);
+	// console.log(typeof myTimer);
 }	
 
 function pause(){
-	clearInterval(myTimer);
+	clearInterval(myTimer);//清除编号为myTimer的定时器，但是myTimer的值还在
+	// console.log(myTimer);
+	myTimer = null;
 }
 
 function stop(){
 	clearInterval(myTimer);
+	myTimer = null;
 	seconds = 0;//记录当前的秒数的	
 	minutes = 0;//记录当前的分钟数的	
 	hours = 0;//记录当前的小时数的	
@@ -272,5 +281,85 @@ function stop(){
 </script>
 ```
 
-​	
-​		
+### 示列"demo08动态改变img标记的src"
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body onload = "startShow()">
+		<img id="imgHoursShi" src="img/1.jpg" />
+		<img id="imgHoursGe" src="img/1.jpg" />:
+		<img id="imgMinutesShi" src="img/1.jpg" />
+		<img id="imgMinutesGe" src="img/5.jpg" />:
+		<img id="imgSecondsShi" src="img/2.jpg" />
+		<img id="imgSecondsGe" src="img/8.jpg" />
+	</body>
+</html>
+<script type="text/javascript">
+
+function showTime() {
+	var d = new Date();
+	var hours = d.getHours();
+	var hoursShi = parseInt(hours/10);
+	var hoursGe = hours%10;
+
+	document.getElementById("imgHoursShi").src='img/'+hoursShi+".jpg";
+	document.getElementById("imgHoursGe").src='img/'+hoursGe+".jpg";
+
+	var minutes = d.getMinutes();
+	var minutesShi = parseInt(minutes/10);
+	var minutesGe = minutes%10;
+
+	document.getElementById("imgMinutesShi").src="img/"+minutesShi+".jpg";
+	document.getElementById("imgMinutesGe").src="img/"+minutesGe+".jpg";
+
+	var seconds = d.getSeconds();
+
+	document.getElementById("imgSecondsShi").src="img/"+parseInt(seconds/10)+".jpg";
+	document.getElementById("imgSecondsGe").src="img/"+seconds%10+".jpg";
+}
+
+function startShow(){
+	setInterval(showTime,1000);
+}
+</script>
+```
+
+### 示列"setTimeout"	
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="box" style="width: 200px;height: 100px;"></div>
+	<input type="button" value="测试" onclick="startColor()" >
+</body>
+</html>
+<script type="text/javascript">
+
+function getColor(){
+	var str="#";
+	for(var i=0;i<6;i++){
+		str += parseInt(Math.random()*16).toString(16);
+	}
+	return str;
+}	
+
+function testf() {	
+	document.getElementById("box").style.backgroundColor = getColor();
+	setTimeout(testf,1000);
+}
+
+function startColor(){
+	setTimeout(testf,1000);//告诉计算机，1000毫秒后调用一次testf
+}
+</script>
+```
