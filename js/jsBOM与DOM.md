@@ -337,3 +337,40 @@ function $(id){
 </html>
 ```
 
+# DOM的作用：
+	用JavaScript操作HTML。
+	包括：在JavaScript中获取（查），添加，修改，删除
+		
+	1）、查：在JavaScript中获取HTML。
+		document.getElementById()
+		document.getElementsByName()
+		document.getElementsByTagName()
+		document.getElementsByClassName()
+
+	2.根据DOM树的结构（节点关系）获取(元素和文本)
+		某个节点.firstChild;
+		某个节点.lastChild;
+		某个节点.childNodes;
+		某个节点.parentNode;
+		某个节点.previousSibling;
+		某个节点.nextSibling;
+		
+	2-1.根据DOM树的结构（节点关系）获取(元素)
+		某个节点.firstElementChild;
+		某个节点.lastElementChild;
+		某个节点.children;
+		某个节点.parentNode;
+		某个节点.previousElementSibling;
+		某个节点.nextElementSibling;
+
+	2)、添加
+		document.createElement(标签名);
+		document.createTextNode();
+		父节点.appendChild(子节点)
+
+	3)、删除
+		父节点.removeChild(子节点)
+		要删除的节点.remove();
+
+	4)、修改
+		父节点.replaceChild(新节点，旧节点);
