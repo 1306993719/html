@@ -28,11 +28,35 @@
 	浏览器支持：
 		IE10+ firefox 4+ Safari 5.1+ Chrome
 
-## ES5新增的数值的方法
-	indexOf
-	forEach()
-	filter()
-	Map()
+## ES5新增的数组的方法 
+
+	indexOf 在数组中查找一个数所在的位置，
+		var arr1 = [12,23,34,45,56,67];
+		console.log(arr1.indexOf(23)); //结果是1
+		
+	forEach 对数组的每个元素做某个处理（函数的方式）
+		var arr1 = [12,23,34,45,56,67];
+		arr1.forEach(alert);//显示数组的每个元素
+		
+	foEach()函数的参数是个回调函数，forEach对应的回调函数有三个参数（数组元素内容，元素索引，数组本身）
+		arr1.forEach(arrInc);
+		function arrInc(num,index,arr){
+			arr[index] = num+1; //每个元素都加1
+		}
+		
+	map：把原始数组的每个元素进行某种处理后，产生（映射）一个新的数组。回调函数参数是数组元素本身。
+		var arr1 = [12,23,34,45,56,67];
+		var arr2 = arr1.map(arrSqr);
+		function arrSqr(num){
+			return num*num
+		}
+		
+	filter： 过滤的意思，根据条件过滤数组的元素，filter的回调函数需要返回的是boolean类型的值。
+		var arr1 = [-12,23,-34,45,-56,67];
+		var arr2 = arr1.filter(eqZero); //过滤掉所有小于等于0的数，留下大于0的数
+		function eqZero(num){
+			return num>0;
+		}
 
 ```html
 <!DOCTYPE html>
@@ -136,21 +160,23 @@ function mySqr(num){
 		indexOf("abc") 查找字符串第一次出现的位置
 		lastIndexOf("abc") 查找字符串最后一次出现的位置 如果没找到 返回-1
 
-		
+
+​		
 	substring() 提取字符串中两个指定的索引号之间的字符。 
 	charCodeAt() 返回在指定的位置的字符的 Unicode 编码。 
 	fromCharCode() 从字符编码创建一个字符串。
-
+	
 	slice() 提取字符串的片断，并在新的字符串中返回被提取的部分
 	split() 把字符串分割为字符串数组。 
-	
-	
+
+
+​	
 	match() 找到一个或多个正则表达式的匹配。
 	search() 检索与正则表达式相匹配的值。 
 	replace() 替换与正则表达式匹配的子串。
-
+	
 	-----------------------------------
-
+	
 	concat() 连接字符串。  
 	substr() 从起始索引号提取字符串中指定数目的字符。 
 	toLowerCase() 把字符串转换为小写。 

@@ -82,7 +82,7 @@
 
 	结论：
 		一般情况下，css的样式属性中出现“-”号，则对应的style属性是：去掉“-”号，把“-”号后面单词的第一字母大写。如果没有“-”号，则两者一样。
-		
+
 ## offset属性
 	element.offsetHeight 通过计算得到的某个元素的高（元素必须出现在页面上）
 	element.offsetWidth 通过计算得到的某个元素的宽（元素必须出现在页面上）
@@ -98,7 +98,7 @@
 	alert(box.getBoundingClientRect().right); // 元素右边距离页面左边的距离
 	alert(box.getBoundingClientRect().bottom); // 元素下边距离页面上边的距离
 	alert(box.getBoundingClientRect().left); // 元素左边距离页面左边的距离
-	
+
 ## 下面的属性和方法可用于所有 HTML 元素上：
 	element.accessKey 设置或返回元素的快捷键。
 	element.appendChild() 向元素添加新的子节点，作为最后一个子节点。
