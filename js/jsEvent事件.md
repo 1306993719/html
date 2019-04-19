@@ -132,7 +132,12 @@
 		var evn=event||window.event; //取得event对象，兼容IE的写法
 		var ele=evn.currentTarget||evn.srcElement; //当前事件元素,兼容IE写法
 		var keycode = evn.which || evn.keyCode;	//兼容火狐的写法
-​	
+		
+	在keydown和keyup事件里，属性keyCode保存着键盘的虚拟码，
+	每个键的虚拟码是唯一的。一个数字对应一个键。
+	
+	在keypress事件里，属性keyCode保存着每个键对应ASCII码，
+	这些键跟显示有关。
 ## event对象的鼠标事件相关属性
 	button 鼠标按键事件中按了哪个鼠标键，0左1中2右，低版本IE：1左2右3左右4滚轮5左加滚轮6右加滚轮7三个同时
 	clientX 基于浏览器可视区域的左上角的鼠标x坐标。
@@ -176,7 +181,13 @@
 	注： 
 		onmousemove和onmouseup绑定到document上代替目标元素来做事情，这就是事件委托。
 
+### onmouseover和onmouseenter的区别
+	onmouseover和onmouseout，会受冒泡的影响，而且进入子元素，会触发父元素onmouseout事件
+
+	onmouseenter和onmouseleave，不会受冒泡的影响，而且进入子元素，不会触发父元素onmouseleave事件，只有离开父元素的区域，才触发父元素onmouseleave事件。
+
 ## 事件冒泡和事件捕获的区别：
+
 	1、从事件流向的角度说：
 	事件冒泡：
 		当触发了某个元素的某类型(如：onclick)的事件后，该元素的父元素的同类型（如：onclick）的事件也会被触发，依次类推最终会触发到最根的元素网上会有这样的说法：从具体的元素（事件源）到不具体（不确定的元素）。
