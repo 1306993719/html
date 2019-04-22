@@ -329,3 +329,180 @@
 				for (let i of set) {
 				console.log(i);
 			}
+		在Set内部，两个NaN是相等。两个对象总是不相等的(比较的是地址)
+		
+### Set结构的四个操作方法
+	add(value)：添加某个值，返回Set结构本身。
+		var set = new Set([1, 2, 3, 4, 4,2,5]);
+		set.add(100);
+		set.add(107).add(108);
+		
+	delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
+		set.delete(4); 
+		
+	has(value)：返回一个布尔值，表示该值是否为Set的成员。
+
+	clear()：清除所有成员，没有返回值
+	
+	Set结构的属性
+		size：set结构的元素个数
+		
+	Set结构的应用：
+	如何去掉一个数组中重复的元素：
+		var arr = [12,23,34,45,23,33,34];
+		var s = new Set(arr);	
+		
+### Map结构		
+		Map结构提供了“值—值”的对应，是一种更完善的Hash（哈希）结构（键值对的集合）实现。如果你需要“键值对”的数据结构，Map比Object更合适。
+		它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。Map就是键值对，跟对象有点像。但是，Map的键除了可以是字符串外，还可以是任何数据类型(包括对象)。Map结构中的键是唯一的。	
+		
+	Map就是键值对，键可以是其它类型的数据。
+		var m = new Map();
+			m.set(1,{id:"1",name:'张三'});//键是数字类型，值是对象
+			m.set(2,{id:"2",name:'张四'});//键是数字类型，值是对象
+		console.log(m.get(2));	
+		
+	Map就是键值对，键可以是对象类型的数据。
+		var m = new Map();
+			var o1 = {"id":"001"};
+			var o2 = {"id":"002"};
+			m.set(o1,{id:"1",name:'张三'});//键是对象，值是对象
+			m.set(o2,{id:"2",name:'张四'});//键是对象，值是对象
+		console.log(m.get(o2));	
+
+### Map的方法
+	set：给Map对象增加一个键值对，如果，存在相同的键，就会覆盖
+	get：根据键获取值，
+	has：判断Map对象中是否存在某个键
+	delete：根据键删除Map对象中的某对键值对。
+	keys：获取Map结构的所有的键。返回值是迭代器
+	values：获取Map结构中的所有的值。返回值是迭代器
+	
+	Map的属性
+		size：Map结构中的数量
+
+	Map结构示例代码
+	var m = new Map();
+	var o1 = {"id":"001"};
+	var o2 = {"id":"002"};
+	m.set(o1,{id:"1",name:'张三'});//键是对象，值是对象
+	m.set(o2,{id:"2",name:'张四'});//键是对象，值是对象
+	console.log(m.size);
+	for (let key of m.keys()) { console.log(key); }
+	for (let value of m.values()) { console.log(value); }
+	console.log(m.has(o1));
+	console.log(m.delete(o1));
+	console.log(m.has(o1));
+
+## Generators
+	Generators（生成器）函数
+	Generators可以极大地简化代码，可以帮助你逃离“回调地狱”。
+
+	生成器函数和普通函数的区别
+		普通函数使用function声明，而生成器函数使用function*声明。
+		在生成器函数内部，有一种类似return的语法：关键字yield。二者的区别是，普通函数只可以return一次，而生成器函数可以yield多次（当然也可以只yield一次）。
+		在生成器的执行过程中，遇到yield表达式，函数立即暂停，后续可恢复执行状态。
+		生成器函数的返回值是 Iterator（迭代器），注意，调用生成器函数，并不会执行函数的代码，而是会返回一个Iterator（迭代器）。
+		生成器函数内部代码的真正执行是从Iterator的next()方法开始的，每调用一次next方法，函数的代码会运行到下一个yield之前或者结束。
+	
+	Generators（生成器）函数代码
+	定义一个生成器函数：
+	function* gFunc() {
+		yield console.log(“今天不肯埋头，明日以何抬头”);
+		yield console.log(“今天多敲代码，明日多拿offer”);
+	}
+	调用生成器函数得到Iterator（迭代器）：
+		var iter = gFunc();
+	运行生成器函数的代码
+		iter.next();//执行console.log(“今天不肯埋头，明日以何抬头”);
+		iter.next();//执行console.log(“今天多敲代码，明天多拿offer”);	
+		
+## Class与继承
+		从ES6（ES2015）开始，JS提出了类（class）概念，这是一个更接近传统语言的写法，有了这种写法，曾经学过java和C++的童鞋们就会觉得JS的面向对象的写法更加容易接受。
+		引入了class（类）这个概念，作为对象的模板。通过class关键字，可以定义类。
+		基本上，ES6的class可以看作只是一个语法糖，它的绝大部分功能，ES6都可以做到，新的class写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。
+		本质上，ES6的Class只是ES6的构造函数的一层包装
+		函数的定义方式有函数声明和函数表达式两种方式一样，类的定义类声明
+		
+	对比以前构造函数和原型方式和Class方式定义一个类
+	构造函数和原型写法：
+		function Person(name){
+			this.name = name;
+		}
+		Person.prototype.eat = function(str){
+			console.log(this.name+”在吃”+str);
+		}
+	
+	class写法
+	class Person{
+	//构造函数
+		constructor(name){
+		this.name = name;
+		}
+			eat(str){
+			console.log(this.name+"在吃"+str);
+			}
+		}
+	
+	（与函数一样）类的定义有两种方式，分别为 类声明和 类表达式。
+	类声明（上页ppt的写法就是声明方式）
+	class 类名{
+		constructor(){}
+		其它函数名(){}
+	}
+	
+	类表达式
+	var 类名 = class{
+		constructor(){}
+		其它函数名(){}
+	}
+	
+		ES6中class的写法虽然与以前不同，但是，底层的实现思路一致。所以，ES6只是让代码的可阅读性更加接近传统编程语言。
+	constructor函数
+		constructor函数就是构造函数，用new运算符调用类名时，就是在调用constructor函数。
+		每个类必须有一个constructor函数，如果没有显式地定义该函数，那么预编译时，会自动增加一个空constructor函数。constructor函数默认返回的是当前对象（this）。当然也可以返回其它对象。	
+	
+	ES6中class继承用extends关键字，这还是跟传统编程语言的写法一样。
+	如：
+	class 子类 extends 父类 {}
+	class Person{
+		//构造函数
+		constructor(name){
+			this.name = name;
+		}
+		eat(str){
+			console.log(this.name+"吃了"+str);
+		}
+	}
+	
+	ES6中class继承用extends关键字，这还是跟传统编程语言的写法一样。
+	class Programmer extends Person{
+		constructor(name,language){
+			super(name);//调用父类的构造函数
+			this.language = language;
+		}
+		writeCode(str){
+			console.log(this.name+"用"+this.language+"写"+str);
+		}
+	}
+	window.onload = function(){
+		var p = new Programmer("张朝阳","JS");
+		p.eat("铁蛋刀削面");
+		p.writeCode("飞机大战");
+	}
+	
+	super
+		子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象。
+	
+	原生构造函数的继承
+	官方原生构造函数是指语言内置的构造函数：Boolean（），Array（）,Date(),Function(),RegExp()等。
+	如：
+		class MyArray extends Array {
+			constructor(...args) {
+			super(...args);
+			}
+		}
+	以前，这些原生构造函数是无法继承的，ES6允许继承原生构造函数定义子类
+
+	
+	
