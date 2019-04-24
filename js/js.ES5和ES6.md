@@ -115,7 +115,7 @@
 	Generators生成器函数
 	class和继承
 	promise（AJAX中学习）
-	
+
 ### let/const
 	Let用来声明变量
 	ES6新增了let命令，用来声明变量。它的用法类似于var，但是所声明的变量，只在let命令所在的代码块内有效。
@@ -132,7 +132,7 @@
 	ES5及其以前只有全局作用域和函数作用域，没有块级作用域。
 	var申明的变量在代码块外面能被识别，但是let命令却不能被识别，这样就实现了js的块级作用域，我们在使用条件语句,循环语句等就会不担心变量污染的问题了。一般来说，一对花括号属于一个块级作用域。
 	在同一个作用域中不能用let声明同名的变量
-
+	
 	Const修饰的变量是只读变量（也叫常量），const修饰的是变量代表内存，而不是引用的内存。
 		const num =20;
 		alert(“num=”+num);
@@ -145,7 +145,164 @@
 		arr = [100,200];//此句话不可以执行
 		alert("arr="+arr);
 
+### **let和var的区别**
+	1、let声明的变量是块级作用域（所在花括号里），var是函数作用域和全局作用域      
+	注意：let是可以定义全局变量，局部变量，块级作用域的变量。 
+	2、let声明的变量不会声明提升，var会声明提升 
+	3、从代码的写法上，let不能声明同名的变量，var可以。
+
+#### 示列代码
+
+```html
+<script type="text/javascript">
+ 
+//1、let声明的变量是块级作用域（所在花括号里），var是函数作用域和全局作用域
+//     注意：let是可以定义全局变量，局部变量，块级作用域的变量。
+ 
+let global_t=350;//用let定义全局变量
+function testf1(){
+	console.log("testf1 global_t="+global_t);
+	global_t=450;
+	
+	//以下代码演示let定义块级作用域。
+	{
+		var temp = 200;
+		let v = 250;//变量v只能在当前花括号里使用
+		console.log("v="+v);
+	}	
+	console.log("temp="+temp);//这个可以正常打印（用var声明的）
+	console.log("v="+v);//这句话要报错（用let声明的）
+}
+function testf2(){
+	console.log("testf2 global_t="+global_t);
+}
+  
+window.onload = function(){
+	testf1();
+	testf2();
+}
+ 
+</script>
+```
+
+#### 变量声明（定义变量）提升：
+		在预编译阶段，编译器会把所有定义的变量全部提升到最顶部，即，把变量声明的语句会自动放置到开始。换句话说，经过预编译后，在任何函数里，一开始是全部的变量声明。
+
+##### 示列代码
+
+```html
+//示例一：
+/*
+function func1(){
+	alert(v1);
+	var v1;
+}
+ 
+//等价于(即预编译后)：
+function func1(){
+	var v1;
+	alert(v1);
+}
+*/
+ 
+//示例二：
+/*
+function func1(){
+	alert(v1);//弹出undefined，因为，只做声明的提升，不做赋值的提升
+	var v1=5;
+}
+ 
+//等价于(即预编译后)：
+function func1(){
+	var v1;//声明提升了，但是赋值没有提升
+	alert(v1);
+	v1=5;
+}
+*/
+/*
+//示例三：
+function func1(){
+	alert(i);//弹出 undefined，因为，只做声明的提升，不做赋值的提升
+	alert(j);//弹出 undefined，因为，只做声明的提升，不做赋值的提升
+	for(var i=0;i<10;i++){
+		for(var j=0;j<10;j++){
+			
+		}		
+	}
+}
+//等价于：
+function func1(){
+	var i;
+	var j;
+	alert(i);
+	alert(j);
+	for(i=0;i<10;i++){
+		for(j=0;j<10;j++){
+			
+		}		
+	}
+}
+*/
+```
+
+	如果有全局变量，并且全局变量和局部变量重名 
+
+##### 示列代码
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="button" value="测试" onclick="func1()" /><br/>
+</body>
+</html>
+<script type="text/javascript">
+ 
+//示例一：
+var v1=200;
+function func1(){
+	alert(v1);//弹出undefined；
+	var v1=300;
+}
+ 
+//等价于(预编译后)：
+var v1=200;
+function func1(){
+	var v1;
+	alert(v1);//弹出undefined；
+	v1=300;
+}
+</script>
+```
+
+	3、从代码的写法上，let不能声明同名的变量，var可以 
+
+##### 示列代码
+
+```html
+<script type="text/javascript">
+
+function testf1(){
+    var temp1 = 100;
+    var temp1 = 200;
+    console.log(temp1);//200
+    let temp2 = 100;
+    //let temp2 = 200;//报错 'temp2' has already been declared
+    console.log(temp2);
+}
+
+window.onload = function(){
+    testf1();
+}
+</script>
+```
+
 ### =>函数
+
 	Arrow Function（箭头函数）。这是ES6标准新增的一种的函数箭头函数就是定义时使用的是箭头。
 	
 	定义一（无函数名）：
@@ -202,7 +359,7 @@
 	定义七（返回值是对象）：
 	var f=(id,name)=>({id:id,name:name}); //红颜色的圆括号不能省略，因为，对象的花括号和函数体的花括号冲突了。
 	console.log(f("007","张无忌").id);	
-		
+
 #### 箭头函数的优点
 	对this转移的处理：
 		箭头函数内部的this是词法作用域，由上下文确定。
@@ -218,7 +375,7 @@
 			this.bannerTimer = setInterval(
 				()=>{this.goStep();}
 			,1000);
-		
+
 ## 解构赋值
 	解构赋值可将数组的元素或对象的属性赋予给另一个变量。该变量的定义语法与数组字面量或对象字面量很相似
 	
@@ -248,7 +405,7 @@
 		let [v1,...v2]=[12,23,34,45,56];//从23开始朝后的所有数字作为数组赋给v2。
 		console.log("v1="+v1);
 		console.log("v2="+v2);	
-		
+
 ### 解构对象
 	解构对象
 		var p = {
@@ -279,19 +436,19 @@
 	如：
 		alert("\u20aa7");
 		alert("\u{20aa7}");
-
+	
 	codePointAt
 	对应于charCodeAt，对于大于\uFFFF的字符也是按照一个字符来处理。
 	如：
 		var str = "𡱖";
 		console.log(str.charCodeAt(0).toString(16));//.toString(16)是转成16进制
 		console.log(str.codePointAt(0).toString(16));
-
+	
 	fromCodePoint
 	String.fromCodePoint()对应String.fromCharCode()
 	如：
 		console.log(String.fromCodePoint(0x21c58));
-
+	
 	includes(), startsWith(), endsWith()
 	以前，JavaScript只有indexOf方法，可以用来确定一个字符串是否包含在另一个字符串中。ES6又提供了三种新方法。
 	includes()：返回布尔值，表示是否找到了参数字符串。
@@ -320,9 +477,9 @@
 ## Set和Map结构
 	Set结构
 		set和Map在很多的面向对象编程语言中（java，c++）中都有。在其它的编程语言中，有个集合(容器)的技术名词，集合包括：数组，set，Map等等，都是属于能够保存很多数据的一个集合。
-
+	
 		ES6提供了新的数据结构Set。它类似于数组，但是成员的值都是唯一的，没有重复的值，可以简单的理解为无重复值的数组。
-
+	
 		Set函数可以接受一个数组（或类似数组的对象）作为参数，用来初始化
 		如：
 			var set = new Set([1, 2, 3, 4, 4,2,5]);//用new的方式实例化一个set实例
@@ -330,7 +487,7 @@
 				console.log(i);
 			}
 		在Set内部，两个NaN是相等。两个对象总是不相等的(比较的是地址)
-		
+
 ### Set结构的四个操作方法
 	add(value)：添加某个值，返回Set结构本身。
 		var set = new Set([1, 2, 3, 4, 4,2,5]);
@@ -341,7 +498,7 @@
 		set.delete(4); 
 		
 	has(value)：返回一个布尔值，表示该值是否为Set的成员。
-
+	
 	clear()：清除所有成员，没有返回值
 	
 	Set结构的属性
@@ -351,7 +508,7 @@
 	如何去掉一个数组中重复的元素：
 		var arr = [12,23,34,45,23,33,34];
 		var s = new Set(arr);	
-		
+
 ### Map结构		
 		Map结构提供了“值—值”的对应，是一种更完善的Hash（哈希）结构（键值对的集合）实现。如果你需要“键值对”的数据结构，Map比Object更合适。
 		它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。Map就是键值对，跟对象有点像。但是，Map的键除了可以是字符串外，还可以是任何数据类型(包括对象)。Map结构中的键是唯一的。	
@@ -380,7 +537,7 @@
 	
 	Map的属性
 		size：Map结构中的数量
-
+	
 	Map结构示例代码
 	var m = new Map();
 	var o1 = {"id":"001"};
@@ -397,7 +554,7 @@
 ## Generators
 	Generators（生成器）函数
 	Generators可以极大地简化代码，可以帮助你逃离“回调地狱”。
-
+	
 	生成器函数和普通函数的区别
 		普通函数使用function声明，而生成器函数使用function*声明。
 		在生成器函数内部，有一种类似return的语法：关键字yield。二者的区别是，普通函数只可以return一次，而生成器函数可以yield多次（当然也可以只yield一次）。
@@ -416,7 +573,7 @@
 	运行生成器函数的代码
 		iter.next();//执行console.log(“今天不肯埋头，明日以何抬头”);
 		iter.next();//执行console.log(“今天多敲代码，明天多拿offer”);	
-		
+
 ## Class与继承
 		从ES6（ES2015）开始，JS提出了类（class）概念，这是一个更接近传统语言的写法，有了这种写法，曾经学过java和C++的童鞋们就会觉得JS的面向对象的写法更加容易接受。
 		引入了class（类）这个概念，作为对象的模板。通过class关键字，可以定义类。
@@ -504,5 +661,6 @@
 		}
 	以前，这些原生构造函数是无法继承的，ES6允许继承原生构造函数定义子类
 
-	
-	
+
+​	
+​	
