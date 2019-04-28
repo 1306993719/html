@@ -715,3 +715,39 @@ class BigMirror{
 }
 ```
 
+# 数组去重的封装函数
+
+```html
+//函数名：removeRepeat
+//函数功能：把数组中重复的元素去除掉。（不能使用set）
+//参数：有重复元素的数组，
+//返回值：无重复元素的数组，
+function removeRepeat(arr){
+	var arr1 = [];
+	for(var i in arr){
+		if(arr1.indexOf(arr[i])==-1){
+			arr1.push(arr[i]);
+		}
+	}
+	return arr1;
+}
+
+
+//函数名：myconcat
+// 函数名：myconcat
+// 功能：把两个数组合并，并去掉重复的元素：（不能使用官方函数concat）
+// 参数：两个数组
+// 返回值：合并后，没有重复元素的数组；
+
+function myconcat(arr1,arr2){
+	var arr=[];
+	for(var i=0;i<arr1.length;i++){
+		arr.push(arr1[i])
+	}
+	for(var j=0;j<arr2.length;j++){
+		arr.push(arr2[j])
+	}
+	return removeRepeat(arr)
+}
+```
+
