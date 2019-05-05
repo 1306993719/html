@@ -124,12 +124,118 @@
 |      500      |                 服务器遇到错误，无法完成请求                 |
 |      503      |                      服务器目前无法使用                      |
 
-​	
-​	
-​	
-​	
-​	
-​	
+## 测试readyState和 status 
+	在myfun中增加以下语句，来感受服务器的状态变化。
+		alert(oRequest.readyState);
+		alert(oRequest.status);
+		
+	function myfun(){
+		alert(oRequest.readyState);
+		alert(oRequest.status);
+		if(oRequest.readyState == 4&&oRequest.status==200){
+			var result = oRequest.responseText;
+			var msgdiv = document.getElementById("message");
+			msgdiv.innerHTML = result;
+		}
+	}
+
+## AJAX交互示例post请求
+	var oRequest;
+	function getTitleInfo(titleid){
+		oRequest = getHttpRequest(); // 获得XMLHttpRequest对象
+		var postStr = "user_name="+ userName +"&user_age="+ userAge ;
+		oRequest.open(“POST” , “AJAXServlet” , true); // 建立对服务器的异步调用AJAX.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		oRequest.onreadystatechange = myfun;
+		oRequest.send(postStr); // 向服务器发送异步调用请求
+	}
 	
-​	
-​	
+	function myfun(){// 显示书籍信息（回调处理）
+		if (oRequest.readyState == 4&&oRequest.status==200){
+			var result = oRequest.responseText;
+			var msgdiv = document.
+			getElementById("message");
+			msgdiv.innerHTML = result;
+		}
+	}
+
+## JSON 
+		JSON（JavaScript Object Notation）
+		AJAX技术能够使得每一次请求更加迅捷，对于每一次请求返回的不是整个页面，只仅仅是所需要返回的数据。通常AJAX通过返回XML格式的数据，然后再通过客户端复杂的JavaScript脚本解析和渲染这些XML格式的数据。
+		JSON（读Jason）是为了能够使得数据格式成为一种标准，更简单的被JavaScript解析
+		
+	优点:
+		轻量级的数据交换格式
+		人们读写更加容易
+		易于机器的解析和生成
+		能够通过JavaScript中eval()函数解析JSON
+		JSON支持多语言。
+		
+	包括：
+		ActionScript, C, C#, ColdFusion, E,Java, JavaScript, ML, Objective CAML, Perl, PHP, Python, Rebol,Ruby, and Lua.
+	
+	JSON的具体形式
+		JSON语法是一种用于传输和生成数据的协定，很类似于C家族的语言，所以很容易被C家族的语言所解析。
+	
+	对象：
+		对象包含在{}之间
+	属性：
+		采用Key-Value对来表示。属性之间使用逗号分开。 string : value
+	数组：
+		数组存放在[]之间 [ elements ]
+	元素：
+		元素之间用逗号分开
+	值：
+		值可以是字符串，数字，对象，数组，true，false，null 
+	
+	JSON数据格式的例子：
+	{
+		"name":"张三",
+		"password":"123456",
+		"department":"技术部",
+		"sex":"男",
+		"old":"28"
+	}
+	
+	JSON数据格式的例子(嵌套)：
+	{
+		"name":"章子怡",
+		"address":
+			{"city":"Beijing",
+			"street":" Chaoyang Road ",
+			"postcode":100025
+		}
+	};
+	
+	人员的详细地址信息:
+	<script language="javascript">
+	function handleJson() {
+	var j={	
+		"name":"章子怡",
+		"address":
+		{
+		"city":"Beijing",
+		"street":" Chaoyang Road ",
+		"postcode":100025
+		}
+	};
+	alert(j.name+"所在城市："+j.address.city);
+	}
+	</script>
+	<body>
+		<input type="button" name="Submit" value="按钮" onClick="handleJson()">
+	</body>
+
+## eval eval(string)
+	作用：
+		eval() 函数可计算某个字符串，并执行其中的 JavaScript 代码。
+		即这个函数可以把一个字符串当作一个JavaScript表达式一样去执行它
+
+	语法：
+		eval(string)
+		参数string必需。要计算的字符串，其中含有要计算的 JavaScript 表达式或要执行的语句。
+	
+	如：
+		服务器端返回一个JSON字符串，需要用eval把它转换为对象。或者数组。 eval("("+json字符串+")"); 
+	
+	返回值：
+		通过计算 string 得到的值（如果有的话），即参数string有返回值，则eval的执行结果就有返回值
