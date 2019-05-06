@@ -112,7 +112,7 @@
 		Promise 对象代表一个异步操作，有三种状态：Pending（进行中）、Resolved（已完成，又称 Fulfilled）和 Rejected（已失败）。只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。
 		一旦状态改变，就不会再变，任何时候都可以得到这个结果. Promise 对象的状态改变，只有两种可能：从 Pending 变为 Resolved 和从 Pending变为 Rejected
 
-## Promise的使用（代码）
+## Prom
 	
 
 
