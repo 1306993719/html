@@ -352,7 +352,47 @@ $("<li>你好</li>");
 //获取表单元素的值
 //val()
 
+//如果在API中看到（参数中有val）,不传递的情况下是获取，传递就是设置
 
+//1.offset:距离可视窗口的偏移返回的是一个对象
+//2.position:父亲距离已经定位元素的偏移
+//scrollTop：滚动条距离上面偏移量
+//$(window).scroll(function () {
+//    console.log($(document).scrollTop());
+//});
+//scrollLeft：滚动条距离上面偏移量
+//width/height
+//console.log($("#box").width());
+//console.log($("#box").height());
+//传值可以改变div的值
+//$("#box").width(800);
+//innerWidth/innerHeight  ====>clientWidth/clientHeight  width+padding
+//console.log($("#box").innerWidth(),$("#box").get(0).clientWidth);
+//outerWidth/outerHeight =====>offsetWidth/offsetHeight  width + padding + border
+//console.log($("#box").outerWidth(),$("#box").get(0).offsetWidth);
+
+//获取一屏幕的宽度和高度
+//var win = document.documentElement.clientWidth || document.body.clientWidth;
+//var win1 = $(window).outerWidth();
+//console.log(win,win1);
+
+//$(window).on("resize",function () {
+//    console.log($(window).outerWidth());
+//}); 
+
+//AJAX中的属性
+//setRequestHeader//当前发送给服务器的格式
+// xhr.setRequestHeader("name","RC");
+//pplication/x-www-form-urlencoded
+//设置请求的编码方式
+// xhr.setRequestHeader("pplication/x-www-form-urlencoded");
+//原型上的方法  发送ajax请求
+//type:请求方式
+//url:请求地址
+//dataType：设置数据类型
+//async:同步获异步
+//cache:缓存设置
+//success：成功的回调，响应主体内容已经反回了
 ````
 
 **`9.事件`**
