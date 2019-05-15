@@ -401,4 +401,35 @@ $("<li>你好</li>");
 
 >当前元素已经绑定了某个事件再次去触发
 >>jq对象.事件();
->>jq对象.trigger("事件名称");
+>>jq对象.trigger("事件名称")
+
+### DOM回流和DOM重绘
+	浏览器先加载HTML,CSS,JS,形参DOM树
+	重绘:一般是当前页面样式发生改变div.style.color = "red";
+	避免重绘:尽量使用className去操作div.className = "bg";
+
+	回流:当前HTML文档的结构发生改变,操作节点,元素显示隐藏,宽度高度等改变
+	一般引起DOM的回流更多是在数据绑定中
+
+	数据绑定的方式
+	字符串拼接
+	缺点:会引发多次DOM回流,每次引发DOM回流刘览器都会重新计算页面结构
+
+	文档碎片:不占性能
+	好处:减少DOM回流次数
+	文档碎片比较多也会占用浏览器的性能,最后我们用完的时候手动释放
+	//createDocumentFragment():创建文档碎片,是固定的写法
+	var frag = document.createDocumentFragment();
+	//一般真实项目中字符串拼接的方式+文档碎片的方式
+
+	示列代码
+	var frag = document.createDocumentFragment();
+	for (var i = 0;i<100;i++){
+	var curLi = document.createElement("li");
+	curLi.innerHTML = "皮卡丘"+"丶"+i+"号";
+	frag.appendChild(curLi);
+	}
+	//只回流一次
+	document.body.appendChild(frag);
+	//手动释放
+	frag = null;
